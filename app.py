@@ -1,4 +1,3 @@
-
 import streamlit as st
 from pdfminer.high_level import extract_text
 from nltk.corpus import stopwords
@@ -8,8 +7,7 @@ import nltk
 
 # Download NLTK stopwords if not already present
 import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
+nltk.data.path.append('nltk_data')
 
 def extract_text_from_pdf(pdf_file):
     with open(pdf_file, 'rb') as f:
@@ -39,3 +37,5 @@ if uploaded_file is not None:
     st.write(tokens)
 
     os.remove("temp_resume.pdf")
+
+
