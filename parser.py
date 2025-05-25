@@ -1,28 +1,33 @@
+import io
 from pdfminer.high_level import extract_text
+import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import re
+import string
 
-def extract_text_from_pdf(pdf_path):
-    """Extracts text from a PDF file."""
-    try:
-        return extract_text(pdf_path)
-    except Exception as e:
-        return f"Error extracting text: {e}"
+# Ensure necessary NLTK data is available
+nltk.download('punkt')
+nltk.download('stopwords')
 
-def clean_and_tokenize(text):
-    """Cleans and tokenizes the input text."""
-    # Lowercase the text
-    text = text.lower()
+# Function to extract text from PDF
+def extract_text_from_pdf(uploaded_file):
+    text = extract_text(uploaded_file)
+    return text
 
-    # Remove non-alphabetical characters
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-
+# Function to clean and tokenize the text
+def clean_text(text):
     # Tokenize the text
-    words = word_tokenize(text)
+    tokens = word_tokenize(text)
+
+    # Convert to lowercase
+    tokens = [word.lower() for word in tokens]
+
+    # Remove punctuation
+    tokens = [word for word in tokens if word.isalpha()]
 
     # Remove stopwords
     stop_words = set(stopwords.words('english'))
-    filtered_words = [word for word in words if word not in stop_words]
+    filtered_tokens = [word for word in tokens if word not in stop_words]
 
-    return filtered_words
+    return filtered_tokens
+
