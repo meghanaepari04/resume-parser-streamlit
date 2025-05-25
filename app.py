@@ -5,24 +5,25 @@ from nltk.tokenize import word_tokenize
 import nltk
 import os
 
-# Download necessary NLTK data (for Streamlit Cloud)
+# 📥 Download required NLTK data (for Streamlit Cloud)
 nltk.download('punkt')
 nltk.download('stopwords')
+nltk.download('punkt_tab')  # ✅ This line is critical!
 
-# Function to extract text from PDF
+# 📄 Extract text from PDF
 def extract_text_from_pdf(pdf_file):
     with open(pdf_file, 'rb') as f:
         text = extract_text(f)
     return text
 
-# Function to clean and tokenize the text
+# 🧹 Clean and tokenize text
 def clean_text(text):
     stop_words = set(stopwords.words('english'))
     words = word_tokenize(text)
     filtered = [w for w in words if w.lower() not in stop_words and w.isalpha()]
     return filtered
 
-# Streamlit App UI
+# 🌐 Streamlit app
 st.title("📄 Resume Parser")
 uploaded_file = st.file_uploader("Upload your resume (PDF only)", type=["pdf"])
 
@@ -40,6 +41,7 @@ if uploaded_file is not None:
     st.write(tokens)
 
     os.remove("temp_resume.pdf")
+
 
 
 
