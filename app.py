@@ -4,6 +4,7 @@ from pdfminer.high_level import extract_text
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import os
+import nltk
 
 # Download NLTK stopwords if not already present
 import nltk
