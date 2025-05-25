@@ -4,10 +4,12 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import string
-
+import os
 # Ensure necessary NLTK data is available
-nltk.download('punkt')
-nltk.download('stopwords')
+nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
+nltk.data.path.append(nltk_data_dir)
+nltk.download('punkt', download_dir=nltk_data_dir, quiet=True)
+nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
 
 # Function to extract text from PDF
 def extract_text_from_pdf(uploaded_file):
